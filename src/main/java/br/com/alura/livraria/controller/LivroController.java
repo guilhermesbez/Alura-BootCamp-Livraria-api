@@ -31,5 +31,4 @@ public class LivroController {
 	public void cadastrar(@RequestBody @Valid LivroFormDto dto) {
 		service.cadastrar(dto);
 	}
-	
 }
