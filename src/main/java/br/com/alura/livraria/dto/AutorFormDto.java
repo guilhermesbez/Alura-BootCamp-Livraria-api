@@ -19,13 +19,17 @@ public class AutorFormDto {
 	@NotBlank
 	@Size(min = 1, max = 140)
 	private String nome;
+
 	@NotBlank
 	@Size(min = 1, max = 140)
 	private String email;
+
 	@NotNull
 	@PastOrPresent
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataNascimento;
+	
+	@Size(max = 240)
 	private String miniCurriculo;
 
 }

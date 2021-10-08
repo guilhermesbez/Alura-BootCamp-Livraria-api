@@ -21,10 +21,12 @@ public class LivroFormDto {
 	@NotBlank
 	@Size(min = 10, max = 200)
 	private String titulo;
+	
 	@PastOrPresent
 	@NotNull
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataLancamento;
+	
 	@DecimalMin("100")
 	private Integer numeroPaginas;
 	
