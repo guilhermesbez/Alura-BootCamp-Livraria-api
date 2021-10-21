@@ -32,9 +32,9 @@ public class AutorController {
 
 	@PostMapping
 	public ResponseEntity<AutorDto> cadastrar(@RequestBody @Valid AutorFormDto dto, UriComponentsBuilder uriBuilder) {
-		AutorDto autorDto = service.cadastrar(dto);
+		AutorDto cadastrado = service.cadastrar(dto);
+		URI endereco = uriBuilder.path("/autor/{id}").buildAndExpand(cadastrado.getId()).toUri();
 		
-		URI uri = uriBuilder.path("/autor/{id}").buildAndExpand(autorDto.getId()).toUri();
-		return ResponseEntity.created(uri ).body(autorDto);
+		return ResponseEntity.created(endereco).body(cadastrado);
 	}
 }
