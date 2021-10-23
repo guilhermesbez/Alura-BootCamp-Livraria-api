@@ -21,6 +21,7 @@ public class AutorService {
 	public Page<AutorDto> listar(org.springframework.data.domain.Pageable paginacao) {
 		Page<Autor> autores = autorRepository.findAll(paginacao);
 		return autores.map(a -> modelMapper.map(a, AutorDto.class));
+
 	}
 	
 	@Transactional

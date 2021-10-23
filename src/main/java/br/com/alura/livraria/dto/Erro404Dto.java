@@ -7,10 +7,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Erro500Dto {
+public class Erro404Dto {
 	
 	private LocalDateTime timestamp;
 	private String erro;
 	private String mensagem;
-	private String path;
+	private String path; 
 }

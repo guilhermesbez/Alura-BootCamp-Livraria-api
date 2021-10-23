@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.alura.livraria.dto.Erro400Dto;
+import br.com.alura.livraria.dto.Erro404Dto;
 import br.com.alura.livraria.dto.Erro500Dto;
+import javassist.NotFoundException;
 
 
 @RestControllerAdvice
@@ -38,5 +40,16 @@ public class TratamentoDeErros {
 				ex.getClass().toString(), 
 				ex.getMessage(), 
 				req.getRequestURI());
+	}
+	
+	@ExceptionHandler(NotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
+	public Erro404Dto tratarErro404(NotFoundException ex, HttpServletRequest req) {
+		return new Erro404Dto(
+				LocalDateTime.now(), 
+				ex.getClass().toString(), 
+				ex.getMessage(), 
+				req.getRequestURI()
+				);
 	}
 }

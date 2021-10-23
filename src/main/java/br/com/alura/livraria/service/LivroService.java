@@ -1,5 +1,7 @@
 package br.com.alura.livraria.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,28 +10,46 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.alura.livraria.dto.LivroDto;
 import br.com.alura.livraria.dto.LivroFormDto;
+import br.com.alura.livraria.modelo.Autor;
 import br.com.alura.livraria.modelo.Livro;
+import br.com.alura.livraria.repository.AutorRepository;
 import br.com.alura.livraria.repository.LivroRepository;
 
 @Service
 public class LivroService {
 
 	@Autowired
-	private LivroRepository livroRepository;
+	private LivroRepository repository;
+	
+	@Autowired
+	private AutorRepository autorRepository;
+	
 	private ModelMapper modelMapper = new ModelMapper();
 
 	public Page<LivroDto> listar(org.springframework.data.domain.Pageable paginacao) {
-		Page<Livro> livros = livroRepository.findAll(paginacao);
-		return livros.map(l -> modelMapper.map(l, LivroDto.class));
+		return repository
+				.findAll(paginacao)
+				.map(l -> modelMapper.map(l, LivroDto.class));
+				
 	}
 
 	@Transactional
-	public LivroDto cadastrar(LivroFormDto dto) {
-		Livro livro = modelMapper.map(dto, Livro.class);
-		livro.setId(null);
+	public LivroDto cadastrar(LivroFormDto dto){
+		Long idAutor = dto.getAutorId();
 		
-		livroRepository.save(livro);
-		return modelMapper.map(livro, LivroDto.class);
+		try {
+			Autor autor = autorRepository.getById(idAutor);
+			Livro livro = modelMapper.map(dto, Livro.class);
+			livro.setId(null);
+			livro.setAutor(autor);
+			
+			repository.save(livro);
+			
+			return modelMapper.map(livro, LivroDto.class);
+		}catch (EntityNotFoundException e) {
+			throw new IllegalArgumentException("Usuário inexistente");
+		}
+		
 	}
 
 }
