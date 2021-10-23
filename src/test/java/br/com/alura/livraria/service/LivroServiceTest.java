@@ -41,7 +41,7 @@ class LivroServiceTest {
 
 		LivroDto livroDto = livroService.cadastrar(livroFormDto);
 		
-		Mockito.verify(repository.save(Mockito.any()));
+		Mockito.verify(repository).save(Mockito.any());
 		
 		assertEquals(livroFormDto.getTitulo(), livroDto.getTitulo());
 		assertEquals(livroFormDto.getDataLancamento(), livroDto.getDataLancamento());

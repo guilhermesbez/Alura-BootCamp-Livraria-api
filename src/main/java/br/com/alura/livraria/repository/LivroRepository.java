@@ -18,12 +18,4 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 			+ "join l.autor a "
 			+ "group by l.autor")
 	List<ItemLivroDto> relatorioLivrosPorAutor();	
-	
-	/*
-	@Query("select new br.com.alura.carteira.dto.ItemCarteiraDto(" 
-			+ "t.ticker, "
-			+ "SUM(CASE WHEN(t.tipo = 'COMPRA') THEN t.quantidade ELSE (t.quantidade * -1) END), "
-			+ "(SELECT SUM(CASE WHEN(t2.tipo = 'COMPRA') THEN t2.quantidade ELSE (t2.quantidade * -1) END) FROM Transacao t2)) " 
-			+ "FROM Transacao t GROUP BY t.ticker")
-	 */
 }
