@@ -38,7 +38,7 @@ class LivroRepositoryTest {
 		Autor autor2= new Autor("Harvei Deitel", "hd@email.com", LocalDate.now(), "Autor de livros tecnicos" );
 		em.persist(autor2);
 		
-		Autor autor3 = new Autor("Tiago Nigro", "tiagi@email.com", LocalDate.now(), "Autor de livros sobre finanças" );
+		Autor autor3 = new Autor("Tiago Nigro", "tiago@email.com", LocalDate.now(), "Autor de livros sobre finanças" );
 		em.persist(autor3);
 		
 		Livro l1 = new Livro("Java como Programar", LocalDate.now(), 990, autor2);

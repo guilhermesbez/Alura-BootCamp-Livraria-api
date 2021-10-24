@@ -9,4 +9,5 @@ public class ItemLivroDto {
 
 	private String titulo;
 	private Long quantidade;
+	//private BigDecimal percentual;
 }
