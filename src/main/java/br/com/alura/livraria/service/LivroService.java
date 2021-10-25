@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.alura.livraria.dto.AtualizacaoLivroFormDto;
 import br.com.alura.livraria.dto.LivroDto;
 import br.com.alura.livraria.dto.LivroFormDto;
 import br.com.alura.livraria.modelo.Autor;
@@ -51,5 +52,26 @@ public class LivroService {
 		}
 		
 	}
+		
+	@Transactional
+	public LivroDto atualizar(AtualizacaoLivroFormDto dtoAtualizacao) {		
+		Livro livro = repository.getById(dtoAtualizacao.getId());
+		livro.atualizarInformacoes(dtoAtualizacao.getTitulo(),dtoAtualizacao.getDataLancamento(),dtoAtualizacao.getNumeroPaginas());
+		
+		return modelMapper.map(livro, LivroDto.class);
+	}
 
+	@Transactional
+	public void remover(Long id) {
+		repository.deleteById(id);
+		
+	}
+
+	public LivroDto detalhar(Long id) {
+		Livro livro = repository
+				.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException());
+		
+		return modelMapper.map(livro, LivroDto.class);
+	}
 }
